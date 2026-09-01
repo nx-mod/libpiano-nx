@@ -28,6 +28,7 @@ THE SOFTWARE.
 #include <assert.h>
 #include <time.h>
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "piano.h"
 #include "piano_private.h"
@@ -144,6 +145,10 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 
 			switch (reqData->step) {
 				case 0: {
+#ifdef __SWITCH__
+					{ FILE *dbg = fopen ("sdmc:/switch/TriPlayer/piano_debug.log", "a");
+					  if (dbg) { fprintf (dbg, "step0: enter\n"); fclose (dbg); } }
+#endif
 					/* decrypt timestamp */
 					json_object *jsonTimestamp;
 					if (!json_object_object_get_ex (result, "syncTime", &jsonTimestamp)) {
@@ -157,21 +162,42 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					char *decryptedTimestamp = NULL;
 					size_t decryptedSize;
 
+#ifdef __SWITCH__
+					{ FILE *dbg = fopen ("sdmc:/switch/TriPlayer/piano_debug.log", "a");
+					  if (dbg) { fprintf (dbg, "step0: before decrypt, cryptedTimestamp=%s ph->partner.in=%p\n", cryptedTimestamp, (void *) ph->partner.in); fclose (dbg); } }
+#endif
 					ret = PIANO_RET_ERR;
 					if ((decryptedTimestamp = PianoDecryptString (ph->partner.in,
 							cryptedTimestamp, &decryptedSize)) != NULL &&
 							decryptedSize > 4) {
+#ifdef __SWITCH__
+						{ FILE *dbg = fopen ("sdmc:/switch/TriPlayer/piano_debug.log", "a");
+						  if (dbg) { fprintf (dbg, "step0: decrypt ok, size=%zu\n", decryptedSize); fclose (dbg); } }
+#endif
 						/* skip four bytes garbage(?) at beginning */
 						const unsigned long timestamp = strtoul (
 								decryptedTimestamp+4, NULL, 0);
 						ph->timeOffset = (long int) realTimestamp -
 								(long int) timestamp;
 						ret = PIANO_RET_CONTINUE_REQUEST;
+					} else {
+#ifdef __SWITCH__
+						{ FILE *dbg = fopen ("sdmc:/switch/TriPlayer/piano_debug.log", "a");
+						  if (dbg) { fprintf (dbg, "step0: decrypt FAILED\n"); fclose (dbg); } }
+#endif
 					}
 					free (decryptedTimestamp);
+#ifdef __SWITCH__
+					{ FILE *dbg = fopen ("sdmc:/switch/TriPlayer/piano_debug.log", "a");
+					  if (dbg) { fprintf (dbg, "step0: before authToken strdup\n"); fclose (dbg); } }
+#endif
 					/* get auth token */
 					ph->partner.authToken = PianoJsonStrdup (result,
 							"partnerAuthToken");
+#ifdef __SWITCH__
+					{ FILE *dbg = fopen ("sdmc:/switch/TriPlayer/piano_debug.log", "a");
+					  if (dbg) { fprintf (dbg, "step0: authToken done, before partnerId\n"); fclose (dbg); } }
+#endif
 					json_object *partnerId;
 					if (!json_object_object_get_ex (result, "partnerId", &partnerId)) {
 						ret = PIANO_RET_INVALID_RESPONSE;
@@ -179,6 +205,10 @@ PianoReturn_t PianoResponse (PianoHandle_t *ph, PianoRequest_t *req) {
 					}
 					ph->partner.id = json_object_get_int (partnerId);
 					++reqData->step;
+#ifdef __SWITCH__
+					{ FILE *dbg = fopen ("sdmc:/switch/TriPlayer/piano_debug.log", "a");
+					  if (dbg) { fprintf (dbg, "step0: exit ok\n"); fclose (dbg); } }
+#endif
 					break;
 				}
 
