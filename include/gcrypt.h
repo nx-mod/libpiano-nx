@@ -30,3 +30,12 @@ gcry_error_t gcry_cipher_encrypt (gcry_cipher_hd_t hd, void *out,
 gcry_error_t gcry_cipher_decrypt (gcry_cipher_hd_t hd, void *out,
 		size_t outsize, const void *in, size_t inlen);
 void gcry_cipher_close (gcry_cipher_hd_t hd);
+
+/* pianobar's main.c calls these three at startup purely for gcrypt's own
+ * library-init/secure-memory setup, neither of which applies to this
+ * shim -- no-ops. */
+#define GCRYCTL_DISABLE_SECMEM          0
+#define GCRYCTL_INITIALIZATION_FINISHED 1
+
+const char *gcry_check_version (const char *req_version);
+gcry_error_t gcry_control (int cmd, ...);

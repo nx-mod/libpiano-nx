@@ -79,3 +79,13 @@ void gcry_cipher_close (gcry_cipher_hd_t hd) {
 	mbedtls_blowfish_free (&hd->ctx);
 	free (hd);
 }
+
+const char *gcry_check_version (const char *req_version) {
+	(void) req_version;
+	return "nx-shim";
+}
+
+gcry_error_t gcry_control (int cmd, ...) {
+	(void) cmd;
+	return GPG_ERR_NO_ERROR;
+}
