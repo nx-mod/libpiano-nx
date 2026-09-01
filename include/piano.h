@@ -31,6 +31,10 @@ THE SOFTWARE.
 #endif
 #include <gcrypt.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* this is our public API; don't expect this api to be stable as long as
  * pandora does not provide a stable api
  * all strings _must_ be utf-8 encoded. i won't care, but pandora does. so
@@ -386,4 +390,8 @@ void PianoDestroyRequest (PianoRequest_t *);
 PianoStation_t *PianoFindStationById (PianoStation_t * const,
 		const char * const);
 const char *PianoErrorToStr (PianoReturn_t);
+
+#ifdef __cplusplus
+}
+#endif
 

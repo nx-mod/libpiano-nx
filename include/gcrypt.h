@@ -13,6 +13,10 @@
 
 #include <stddef.h>
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 typedef int gcry_error_t;
 typedef struct gcry_cipher_handle *gcry_cipher_hd_t;
 
@@ -39,3 +43,7 @@ void gcry_cipher_close (gcry_cipher_hd_t hd);
 
 const char *gcry_check_version (const char *req_version);
 gcry_error_t gcry_control (int cmd, ...);
+
+#ifdef __cplusplus
+}
+#endif
