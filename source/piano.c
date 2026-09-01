@@ -337,6 +337,129 @@ const char *PianoErrorToStr (PianoReturn_t ret) {
 			return "Access denied. Try again later.";
 			break;
 
+		case PIANO_RET_P_API_VERSION_NOT_SUPPORTED:
+			return "API version not supported.";
+			break;
+
+		case PIANO_RET_P_BIRTH_YEAR_INVALID:
+			return "Invalid birth year.";
+			break;
+
+		case PIANO_RET_P_BIRTH_YEAR_TOO_YOUNG:
+			return "Account holder is too young.";
+			break;
+
+		case PIANO_RET_P_CERTIFICATE_REQUIRED:
+			return "Certificate required.";
+			break;
+
+		case PIANO_RET_P_COMPLIMENTARY_PERIOD_ALREADY_IN_USE:
+			return "Complimentary period already in use.";
+			break;
+
+		case PIANO_RET_P_DAILY_TRIAL_LIMIT_REACHED:
+			return "Daily trial limit reached.";
+			break;
+
+		case PIANO_RET_P_DEVICE_ALREADY_ASSOCIATED_TO_ACCOUNT:
+			return "Device is already associated with an account.";
+			break;
+
+		case PIANO_RET_P_DEVICE_DISABLED:
+			return "Device disabled.";
+			break;
+
+		case PIANO_RET_P_DEVICE_MODEL_INVALID:
+			return "Invalid device model.";
+			break;
+
+		case PIANO_RET_P_DEVICE_NOT_FOUND:
+			return "Device not found.";
+			break;
+
+		case PIANO_RET_P_EXPLICIT_PIN_INCORRECT:
+			return "Incorrect explicit content PIN.";
+			break;
+
+		case PIANO_RET_P_EXPLICIT_PIN_MALFORMED:
+			return "Malformed explicit content PIN.";
+			break;
+
+		case PIANO_RET_P_INSUFFICIENT_CONNECTIVITY:
+			return "Insufficient connectivity.";
+			break;
+
+		case PIANO_RET_P_INVALID_COUNTRY_CODE:
+			/* shares its numeric value with PIANO_RET_P_INVALID_GENDER --
+			 * Pandora's API reuses error code 1027 for both, so there's no
+			 * way to tell them apart from the code alone */
+			return "Invalid country code or gender.";
+			break;
+
+		case PIANO_RET_P_INVALID_PASSWORD:
+			return "Invalid password.";
+			break;
+
+		case PIANO_RET_P_INVALID_SPONSOR:
+			return "Invalid sponsor.";
+			break;
+
+		case PIANO_RET_P_INVALID_USERNAME:
+			return "Invalid username.";
+			break;
+
+		case PIANO_RET_P_PARAMETER_MISSING:
+			return "Required parameter missing.";
+			break;
+
+		case PIANO_RET_P_PARAMETER_TYPE_MISMATCH:
+			return "Parameter type mismatch.";
+			break;
+
+		case PIANO_RET_P_PARAMETER_VALUE_INVALID:
+			return "Invalid parameter value.";
+			break;
+
+		case PIANO_RET_P_SECURE_PROTOCOL_REQUIRED:
+			return "Secure protocol (https) required.";
+			break;
+
+		case PIANO_RET_P_UPGRADE_DEVICE_MODEL_INVALID:
+			return "Invalid upgrade device model.";
+			break;
+
+		case PIANO_RET_P_URL_PARAM_MISSING_AUTH_TOKEN:
+			return "URL parameter missing: auth token.";
+			break;
+
+		case PIANO_RET_P_URL_PARAM_MISSING_METHOD:
+			return "URL parameter missing: method.";
+			break;
+
+		case PIANO_RET_P_URL_PARAM_MISSING_PARTNER_ID:
+			return "URL parameter missing: partner id.";
+			break;
+
+		case PIANO_RET_P_URL_PARAM_MISSING_USER_ID:
+			return "URL parameter missing: user id.";
+			break;
+
+		case PIANO_RET_P_USERNAME_ALREADY_EXISTS:
+			return "Username already exists.";
+			break;
+
+		case PIANO_RET_P_USER_ALREADY_USED_TRIAL:
+			return "User has already used their trial.";
+			break;
+
+		case PIANO_RET_P_USER_NOT_AUTHORIZED:
+			return "User not authorized.";
+			break;
+
+		case PIANO_RET_P_ZIP_CODE_INVALID:
+			return "Invalid zip code.";
+			break;
+
 		default:
 			return "No error message available.";
 			break;
